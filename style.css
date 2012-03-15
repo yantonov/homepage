@@ -1,0 +1,89 @@
+body {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+}
+.page {
+    width: 80%;
+}
+.cntr {
+    margin: 0 auto;
+}
+A:link {
+	COLOR: white; TEXT-DECORATION: none
+}
+A:visited {
+	COLOR: white; TEXT-DECORATION: none
+}
+A:hover {
+	/*FONT-WEIGHT: bold;*/ COLOR: red; TEXT-DECORATION: none
+}
+.mbg {
+	background-color: #003366;
+}
+.page-header {
+    background-color: #005090;
+    border: 1px solid black;
+    color: yellow;
+    padding: 8px;
+    text-align: center;
+    width: 80%;
+}
+.page-footer {
+    background-color: #005090;
+    border: 1px solid black;
+    color: yellow;
+    padding: 4px;
+    text-align: center;
+    width: 80%;
+}
+.tm {
+    background-color: #003366;
+    border-style: none;
+    border-collapse: collapse;
+    color: white;
+    text-align: center;
+    width: 80%;
+}
+.tm td {
+    padding: 20px 0px 20px 0px;
+}
+.block {
+    background-color: #005090;
+    border: 1px solid black;
+    color: black;
+    text-align: center;
+    width: 80%;
+}
+.block-header {
+    border-bottom: 1px solid black;
+    color: #00DD00;
+    font-size: 12pt;
+    font-weight: bold;
+    text-align: center;
+}
+.block-content-wrap {
+    border-collapse: collapse;
+    display: table;
+    font-size: 12pt;
+    margin: 0 auto;
+    text-align: left;
+    width: 25%;
+ }
+.block-content {
+    display: table-cell;
+    padding: 8px 0px 16px 0px;
+    text-align: left;
+}
+.block-content a {
+    white-space: nowrap;
+}
+.tch {
+	BACKGROUND-COLOR: #005090;
+}
+.tmc {
+	width:	20%;
+	vertical-align: top;
+}
+.subheader{
+	color:orange;
+}
