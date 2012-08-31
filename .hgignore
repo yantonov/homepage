@@ -1,0 +1,13 @@
+syntax: glob
+
+# backup files
+*~
+
+# Lock files used by the Emacs editor.
+# Notice that the "#" character is quoted with a backslash.
+# This prevents it from being interpreted as starting a comment.
+.\#*
+
+# emacs auto save files
+\#*\#
+
