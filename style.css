@@ -9,16 +9,16 @@ body {
     margin: 0 auto;
 }
 A:link {
-	COLOR: white; TEXT-DECORATION: none
+    COLOR: white; TEXT-DECORATION: none
 }
 A:visited {
-	COLOR: white; TEXT-DECORATION: none
+    COLOR: white; TEXT-DECORATION: none
 }
 A:hover {
-	/*FONT-WEIGHT: bold;*/ COLOR: red; TEXT-DECORATION: none
+    /*FONT-WEIGHT: bold;*/ COLOR: red; TEXT-DECORATION: none
 }
 .mbg {
-	background-color: #003366;
+    background-color: #003366;
 }
 .page-header {
     background-color: #005090;
@@ -29,6 +29,7 @@ A:hover {
     width: 80%;
 }
 .page-footer {
+    margin-top: 20px;
     background-color: #005090;
     border: 1px solid black;
     color: yellow;
@@ -45,7 +46,7 @@ A:hover {
     width: 80%;
 }
 .tm td {
-    padding: 20px 0px 20px 0px;
+    padding: 20px 0px 0px 0px;
 }
 .block {
     background-color: #005090;
@@ -78,12 +79,12 @@ A:hover {
     white-space: nowrap;
 }
 .tch {
-	BACKGROUND-COLOR: #005090;
+    BACKGROUND-COLOR: #005090;
 }
 .tmc {
-	width:	20%;
-	vertical-align: top;
+    width:  20%;
+    vertical-align: top;
 }
 .subheader{
-	color:orange;
+    color:orange;
 }
