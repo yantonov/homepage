@@ -8,14 +8,15 @@ body {
 .cntr {
     margin: 0 auto;
 }
-A:link {
-    COLOR: white; TEXT-DECORATION: none
+a,
+a:visited {
+    color: white;
+    text-decoration: none
 }
-A:visited {
-    COLOR: white; TEXT-DECORATION: none
-}
-A:hover {
-    /*FONT-WEIGHT: bold;*/ COLOR: red; TEXT-DECORATION: none
+
+a:hover {
+    color: red;
+    text-decoration: none;
 }
 .mbg {
     background-color: #003366;
@@ -28,6 +29,7 @@ A:hover {
     text-align: center;
     width: 80%;
 }
+
 .page-footer {
     margin-top: 20px;
     background-color: #005090;
@@ -37,54 +39,43 @@ A:hover {
     text-align: center;
     width: 80%;
 }
-.tm {
-    background-color: #003366;
-    border-style: none;
-    border-collapse: collapse;
-    color: white;
-    text-align: center;
+
+.row {
+    padding-top: 16px;
     width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
 }
-.tm td {
-    padding: 20px 0px 0px 0px;
-}
+
 .block {
-    background-color: #005090;
-    border: 1px solid black;
-    color: black;
+    flex-basis: 16%;
     text-align: center;
-    width: 80%;
+    border: 1px solid black;
+    background-color: #005090;
 }
+
 .block-header {
+    color: #00dd00;
     border-bottom: 1px solid black;
-    color: #00DD00;
     font-size: 12pt;
     font-weight: bold;
     text-align: center;
 }
-.block-content-wrap {
-    border-collapse: collapse;
-    display: table;
-    font-size: 12pt;
-    margin: 0 auto;
-    text-align: left;
-    width: 25%;
- }
-.block-content {
-    display: table-cell;
+
+.block-links-wrap {
     padding: 8px 0px 16px 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.block-links {
     text-align: left;
+    flex-basis: auto;
 }
-.block-content a {
-    white-space: nowrap;
-}
-.tch {
-    BACKGROUND-COLOR: #005090;
-}
-.tmc {
-    width:  20%;
-    vertical-align: top;
-}
-.subheader{
-    color:orange;
+
+.block-links a
+{
+    display: block;
 }
