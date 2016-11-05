@@ -27,7 +27,7 @@ a:hover {
     color: yellow;
     padding: 8px;
     text-align: center;
-    width: 80%;
+    width: 85%;
 }
 
 .page-footer {
@@ -37,12 +37,12 @@ a:hover {
     color: yellow;
     padding: 4px;
     text-align: center;
-    width: 80%;
+    width: 85%;
 }
 
 .row {
     padding-top: 16px;
-    width: 80%;
+    width: 85%;
     margin: 0 auto;
     display: flex;
     justify-content: space-around;
