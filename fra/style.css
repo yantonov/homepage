@@ -1,0 +1,92 @@
+body {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+}
+
+.page {
+    width: 80%;
+}
+
+.cntr {
+    margin: 0 auto;
+}
+
+a,
+a:visited {
+    color: white;
+    text-decoration: none
+}
+
+a:hover {
+    color: red;
+    text-decoration: none;
+}
+
+.mbg {
+    background-color: #003366;
+}
+
+.page-header {
+    background-color: #005090;
+    border: 1px solid black;
+    color: yellow;
+    padding: 8px;
+    text-align: center;
+    width: 85%;
+}
+
+.page-footer {
+    margin-top: 20px;
+    background-color: #005090;
+    border: 1px solid black;
+    color: yellow;
+    padding: 4px;
+    text-align: center;
+    width: 85%;
+}
+
+.row {
+    padding-top: 16px;
+    width: 85%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+}
+
+.block {
+    width: 16%;
+    text-align: center;
+    border: 1px solid black;
+    background-color: #005090;
+    overflow: hidden;
+}
+
+.block:hover {
+    overflow: visible;
+}
+
+.block-header {
+    color: #00dd00;
+    border-bottom: 1px solid black;
+    font-size: 12pt;
+    font-weight: bold;
+    text-align: center;
+    padding: 2px 0px;
+}
+
+.block-links-wrap {
+    padding: 8px 0px 16px 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.block-links {
+    text-align: left;
+    width: 75%;
+}
+
+.block-links a
+{
+    display: block;
+}
