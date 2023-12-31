@@ -11,6 +11,12 @@ body {
     margin: 0 auto;
 }
 
+.switch-env {
+    padding-right: 20px;
+    position: absolute;
+    right: 20px;
+}
+
 a,
 a:visited {
     color: white;
@@ -27,6 +33,7 @@ a:hover {
 }
 
 .page-header {
+    position: relative;
     background-color: #005090;
     border: 1px solid black;
     color: yellow;
