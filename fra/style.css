@@ -17,6 +17,10 @@ body {
     right: 20px;
 }
 
+.danger {
+    color: red;
+}
+
 a,
 a:visited {
     color: white;
