@@ -8,7 +8,7 @@ function initPage() {
         if (window.location.href.includes("debug")) {
             console.log(event.key);
         }
-        if (event.ctrlKey && (event.key == 'ArrowRight' || event.key == 'ArrowLeft')) {
+        if (event.ctrlKey && (event.key === 'ArrowRight' || event.key === 'ArrowLeft')) {
             switchLang();
         }
     });
