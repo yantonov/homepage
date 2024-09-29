@@ -101,3 +101,18 @@ a:hover {
 {
     display: block;
 }
+
+.query-wrap {
+    padding: 16px 0 0 0;
+    width: 50%;
+}
+
+.query-wrap .query {
+    display: inline-block;
+    width: 100%;
+}
+
+.link-highlighted {
+    color: yellow !important;
+    text-decoration: underline;
+}
