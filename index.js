@@ -41,8 +41,19 @@ class Links {
             if (query.length === 0) {
                 return;
             }
-            
+
             let selected = self.links.filter(item => {
+                let name = item.name;
+                return name === query;
+            });
+            if (selected.length > 0) {
+                selected.forEach(item => {
+                    item.element.classList.add('link-highlighted');
+                });
+                return;
+            }
+            
+            selected = self.links.filter(item => {
                 let name = item.name;
                 return isCharsIncludedInOrder(query, name);
             })
