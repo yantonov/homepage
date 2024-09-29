@@ -110,9 +110,14 @@ a:hover {
 .query-wrap .query {
     display: inline-block;
     width: 100%;
+    border: 2px solid #003366
 }
 
 .link-highlighted {
     color: yellow !important;
     text-decoration: underline;
+}
+
+.query-highlighted {
+    border: 2px solid #00dd00 !important;
 }

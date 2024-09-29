@@ -96,12 +96,21 @@ class State {
 }
 
 class QueryInput {
-    constructor(document, state) {
+    constructor(document, state, links) {
         let self = this;
         this.element = document.getElementsByClassName('query')[0];
         
         this.element.addEventListener('input', (event) => {
             state.setQuery(self.element.value);
+        });
+
+        state.subscribe(state => {
+            if (links.getSelected().length === 1) {
+                self.element.classList.add('query-highlighted');
+            }
+            else {
+                self.element.classList.remove('query-highlighted');
+            }
         });
     }
 
@@ -119,7 +128,7 @@ function initPage() {
         let state = new State();
         let langLink = new LangLink(window, document);
         let links = new Links(document, state);
-        let queryInput = new QueryInput(document, state);
+        let queryInput = new QueryInput(document, state, links);
         queryInput.focus();
         
         window.addEventListener("keydown", (event) => {
