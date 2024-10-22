@@ -109,6 +109,7 @@ class State {
 class QueryInput {
     constructor(document, state, links) {
         let self = this;
+        this.document = document;
         this.element = document.getElementsByClassName('query')[0];
         
         this.element.addEventListener('input', (event) => {
@@ -132,6 +133,44 @@ class QueryInput {
     focus() {
         this.element.focus();
     }
+
+    hasFocus() {
+        return this.document.activeElement === this.element;
+    }
+}
+
+class KeyboardHandler {
+    constructor(window, langLink, links, queryInput) {
+        window.addEventListener("keydown", (event) => {
+            if (window.location.href.includes("debug")) {
+                console.log(event.key);
+            }          
+            if (event.ctrlKey && (event.key === 'ArrowRight' || event.key === 'ArrowLeft')) {
+                langLink.click();
+                return;
+            }
+            if (event.key === 'Escape') {
+                links.reset();
+                queryInput.reset();
+                event.preventDefault();
+                return;
+            }
+            if (event.key === 'Enter') {
+                let selected = links.getSelected();
+                if (selected.length === 1) {
+                    window.open(selected[0].element.href, "_blank");
+                }
+                return;                
+            }
+            if (event.key === 'Tab') {
+                return;
+            }
+            if (!queryInput.hasFocus()) {
+                queryInput.focus();
+                return;
+            }
+        });
+    }
 }
 
 function initPage() {
@@ -141,27 +180,8 @@ function initPage() {
         let links = new Links(document, state);
         let queryInput = new QueryInput(document, state, links);
         queryInput.focus();
-        
-        window.addEventListener("keydown", (event) => {
-            if (window.location.href.includes("debug")) {
-                console.log(event.key);
-            }          
-            if (event.ctrlKey && (event.key === 'ArrowRight' || event.key === 'ArrowLeft')) {
-                langLink.click();
-            }
-            if (event.key === 'Escape') {
-                links.reset();
-                queryInput.reset();
-                event.preventDefault();
-            }
-            if (event.key === 'Enter') {
-                let selected = links.getSelected();
-                if (selected.length === 1) {
-                    window.open(selected[0].element.href, "_blank");
-                }
-                
-            }
-        });
+
+        let keyboardHandler = new KeyboardHandler(window, langLink, links, queryInput);              
     });
 }
 
