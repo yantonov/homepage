@@ -128,6 +128,7 @@ class QueryInput {
 
     reset() {
         this.element.value = '';
+        this.element.classList.remove('query-highlighted');
     }
 
     focus() {
