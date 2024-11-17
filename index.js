@@ -24,9 +24,25 @@ class LangLink {
     }
 }
 
+class Search {
+    prepareQuery(query) {
+        return query.toLowerCase().trim();
+    }
+
+    isExactMatch(query, name) {
+        return name === query;
+    }
+
+    isFuzzySearchMatch(query, name) {
+        return isCharsIncludedInOrder(query, name);
+    }
+}
+
 class Links {
     constructor(document, state) {
         let self = this;
+        this.search = new Search();
+        this.highlightedLinkStyle = 'link-highlighted'
         this.links = Array.from(document.getElementsByTagName('a'))
             .filter(link => link.classList.length == 0)
             .map(link => {
@@ -36,44 +52,52 @@ class Links {
                 };
             });
         state.subscribe(state => {
-            self.reset();           
-            let query = state.query.toLowerCase().trim();
-            if (query.length === 0) {
-                return;
-            }
-
-            let selected = self.links.filter(item => {
-                let name = item.name;
-                return name === query;
-            });
-            if (selected.length > 0) {
-                selected.forEach(item => {
-                    item.element.classList.add('link-highlighted');
-                });
-                return;
-            }
-            
-            selected = self.links.filter(item => {
-                let name = item.name;
-                return isCharsIncludedInOrder(query, name);
-            })
-                .forEach(item => {
-                    item.element.classList.add('link-highlighted');
-                });
+            self.reset();
+            self.filterByQuery(state.query);
         });
     }
 
+    filterByQuery(rawQuery) {
+        let query = this.search.prepareQuery(rawQuery);
+        if (query.length === 0) {
+            return;
+        }
+        let self = this;
+
+        let predicates = [
+            (query, name) => this.search.isExactMatch(query, name),
+            (query, name) => this.search.isFuzzySearchMatch(query, name),
+        ]
+
+        for (var i = 0; i < predicates.length; ++i) {
+            let predicate = predicates[i];
+            let selected = this.links.filter(item => {
+                let name = item.name;
+                return predicate(query, name);
+            });
+            if (selected.length > 0) {
+                selected.forEach(item => {
+                    item.element.classList.add(self.highlightedLinkStyle);
+                });
+                return;
+            }       
+            
+        }
+    }
+
     reset() {
+        let self = this;
         this.links
             .forEach(link => {
-                link.element.classList.remove('link-highlighted');
+                link.element.classList.remove(self.highlightedLinkStyle);
             });
     }
 
     getSelected() {
+        let self = this;
         return this.links.filter(item => {
             let el = item.element;
-            return el.classList.contains('link-highlighted');
+            return el.classList.contains(self.highlightedLinkStyle);
         });
     }
 }
