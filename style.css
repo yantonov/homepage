@@ -88,13 +88,12 @@ a:hover {
 
 .block-links-wrap {
     padding: 8px 0px 8px 0px;
-    display: flex;
-    justify-content: center;
 }
 
 .block-links {
     text-align: left;
-    width: 30%;
+    margin: 0 auto;
+    display: inline-block;
 }
 
 .block-links a
