@@ -53,7 +53,7 @@ class Links {
             });
         state.subscribe(state => {
             self.reset();
-            self.filterByQuery(state.query);
+            self.filterByQuery(state.getQuery());
         });
     }
 
@@ -114,9 +114,7 @@ class State {
 
     fireUpdateEvent() {
         let self = this;
-        this.subscribers.forEach(subscriber => subscriber({
-            query: self.searchQuery
-        }));
+        this.subscribers.forEach(subscriber => subscriber(self));
     }
     
     setQuery(value) {
@@ -127,6 +125,29 @@ class State {
 
     getQuery() {
         return this.searchQuery;
+    }
+
+    serialize() {
+        return 'query=' + this.getQuery().replace(/ /g, '_');
+    }
+
+    __deserialize(value) {
+        let self = this;
+        let tokens = value.split('&');
+        tokens.forEach(token => {
+            let data = token.split('=');
+            let paramName = data[0];
+            let paramValue = data[1];
+            if (paramName === 'query') {
+                self.searchQuery = paramValue.replace(/_/g, ' ');
+            }
+        });
+    }
+
+    read(value) {
+        this.__deserialize(value);
+        this.fireUpdateEvent();
+        return this;
     }
 }
 
@@ -141,6 +162,7 @@ class QueryInput {
         });
 
         state.subscribe(state => {
+            self.setValue(state.getQuery());
             if (links.getSelected().length === 1) {
                 self.element.classList.add('query-highlighted');
             }
@@ -151,8 +173,12 @@ class QueryInput {
     }
 
     reset() {
-        this.element.value = '';
+        this.setValue('');
         this.element.classList.remove('query-highlighted');
+    }
+
+    setValue(value) {
+        this.element.value = value;
     }
 
     focus() {
@@ -165,7 +191,7 @@ class QueryInput {
 }
 
 class KeyboardHandler {
-    constructor(window, langLink, links, queryInput) {
+    constructor(window, langLink, links, queryInput, state) {
         window.addEventListener("keydown", (event) => {
             if (window.location.href.includes("debug")) {
                 console.log(event.key);
@@ -175,8 +201,7 @@ class KeyboardHandler {
                 return;
             }
             if (event.key === 'Escape') {
-                links.reset();
-                queryInput.reset();
+                state.setQuery('');
                 event.preventDefault();
                 return;
             }
@@ -202,15 +227,30 @@ class KeyboardHandler {
     }
 }
 
+class AddressBar {
+    constructor(state) {
+        state.subscribe(s => {
+            window.location.hash = '#' + s.serialize();
+        })
+    }
+
+    getHash() {
+        return window.location.hash.substring(1);
+    }
+}
+
 function initPage() {
     window.addEventListener('load', () => {
         let state = new State();
+        let addressBar = new AddressBar(state);
         let langLink = new LangLink(window, document);
         let links = new Links(document, state);
         let queryInput = new QueryInput(document, state, links);
-        queryInput.focus();
+        let keyboardHandler = new KeyboardHandler(window, langLink, links, queryInput, state);              
 
-        let keyboardHandler = new KeyboardHandler(window, langLink, links, queryInput);              
+        state.read(addressBar.getHash());
+        
+        queryInput.focus();
     });
 }
 
