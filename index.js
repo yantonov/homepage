@@ -187,7 +187,7 @@ class KeyboardHandler {
                 }
                 return;                
             }
-            if (event.key === 'Tab') {
+            if (this.__specialKeyPressed(event)) {
                 return;
             }
             if (!queryInput.hasFocus()) {
@@ -195,6 +195,10 @@ class KeyboardHandler {
                 return;
             }
         });
+    }
+
+    __specialKeyPressed(event) {
+        return event.key === 'Tab' || event.ctrlKey || event.altKey || event.metaKey || event.shiftKey;
     }
 }
 
