@@ -14,13 +14,28 @@ function isCharsIncludedInOrder(query, text) {
 }
 
 class LangLink {
-    constructor(window, document) {
+    constructor(window, document, state) {
+        let self = this;
         this.window = window;
         this.element = document.getElementsByClassName('lang')[0];
+        state.subscribe(s => self.__update(s));
     }
 
     click() {
         this.window.location.href = this.element.href;
+    }
+
+    __update(state) {
+        let serializedState = state.serialize();
+
+        let href = this.element.attributes.getNamedItem("href");
+        let index = href.value.indexOf("#");
+
+        href.value = index < 0
+            ? href.value + "#" + serializedState
+            : href.value.substring(0, index) + "#" + serializedState;
+
+        this.element.attributes.setNamedItem(href);
     }
 }
 
@@ -243,7 +258,7 @@ function initPage() {
     window.addEventListener('load', () => {
         let state = new State();
         let addressBar = new AddressBar(state);
-        let langLink = new LangLink(window, document);
+        let langLink = new LangLink(window, document, state);
         let links = new Links(document, state);
         let queryInput = new QueryInput(document, state, links);
         let keyboardHandler = new KeyboardHandler(window, langLink, links, queryInput, state);              
