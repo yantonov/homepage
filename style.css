@@ -111,6 +111,7 @@ a:hover {
     width: 100%;
     border: 2px solid #003366;
     font-size: 12pt;
+    padding: 5px 20px;
 }
 
 .link-highlighted {
