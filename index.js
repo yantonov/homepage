@@ -218,6 +218,7 @@ class KeyboardHandler {
             if (event.key === 'Escape') {
                 state.setQuery('');
                 event.preventDefault();
+                queryInput.focus();
                 return;
             }
             if (event.key === 'Enter') {
@@ -227,18 +228,7 @@ class KeyboardHandler {
                 }
                 return;                
             }
-            if (this.__specialKeyPressed(event)) {
-                return;
-            }
-            if (!queryInput.hasFocus()) {
-                queryInput.focus();
-                return;
-            }
         });
-    }
-
-    __specialKeyPressed(event) {
-        return event.key === 'Tab' || event.ctrlKey || event.altKey || event.metaKey || event.shiftKey;
     }
 }
 
