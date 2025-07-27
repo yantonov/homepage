@@ -95,8 +95,8 @@ class Links {
                     item.element.classList.add(self.highlightedLinkStyle);
                 });
                 return;
-            }       
-            
+            }
+
         }
     }
 
@@ -131,7 +131,7 @@ class State {
         let self = this;
         this.subscribers.forEach(subscriber => subscriber(self));
     }
-    
+
     setQuery(value) {
         this.searchQuery = value;
         this.fireUpdateEvent();
@@ -171,7 +171,7 @@ class QueryInput {
         let self = this;
         this.document = document;
         this.element = document.getElementsByClassName('query')[0];
-        
+
         this.element.addEventListener('input', (event) => {
             state.setQuery(self.element.value);
         });
@@ -210,15 +210,19 @@ class KeyboardHandler {
         window.addEventListener("keydown", (event) => {
             if (window.location.href.includes("debug")) {
                 console.log(event.key);
-            }          
+            }
             if (event.ctrlKey && (event.key === 'ArrowRight' || event.key === 'ArrowLeft')) {
                 langLink.click();
                 return;
             }
             if (event.key === 'Escape') {
-                state.setQuery('');
-                event.preventDefault();
-                queryInput.focus();
+                if (!queryInput.hasFocus()) {
+                    queryInput.focus();
+                }
+                else {
+                    state.setQuery('');
+                    event.preventDefault();
+                }
                 return;
             }
             if (event.key === 'Enter') {
@@ -226,7 +230,7 @@ class KeyboardHandler {
                 if (selected.length === 1) {
                     window.open(selected[0].element.href, "_blank");
                 }
-                return;                
+                return;
             }
         });
     }
@@ -251,10 +255,10 @@ function initPage() {
         let langLink = new LangLink(window, document, state);
         let links = new Links(document, state);
         let queryInput = new QueryInput(document, state, links);
-        let keyboardHandler = new KeyboardHandler(window, langLink, links, queryInput, state);              
+        let keyboardHandler = new KeyboardHandler(window, langLink, links, queryInput, state);
 
         state.read(addressBar.getHash());
-        
+
         queryInput.focus();
     });
 }
