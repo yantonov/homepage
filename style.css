@@ -7,7 +7,7 @@ body {
     width: 80%;
 }
 
-@media screen and (max-width: 1024px) {
+@media (max-width: 1024px) {
     .page {
         width: 100%;
     }
@@ -52,7 +52,7 @@ a:hover {
     width: 85%;
 }
 
-@media screen and (max-width: 1024px) {
+@media (max-width: 1024px) {
     .page-header {
         width: 100%;
     }
@@ -68,7 +68,7 @@ a:hover {
     width: 85%;
 }
 
-@media screen and (max-width: 1024px) {
+@media (max-width: 1024px) {
     .page-footer {
         width: 100%;
     }
@@ -83,7 +83,7 @@ a:hover {
     align-items: stretch;
 }
 
-@media screen and (max-width: 1024px) {
+@media (max-width: 1024px) {
     .row {
         width: 100%;
     }
