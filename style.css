@@ -7,6 +7,12 @@ body {
     width: 80%;
 }
 
+@media screen and (max-width: 1024px) {
+    .page {
+        width: 100%;
+    }
+}
+
 .cntr {
     margin: 0 auto;
 }
@@ -46,6 +52,12 @@ a:hover {
     width: 85%;
 }
 
+@media screen and (max-width: 1024px) {
+    .page-header {
+        width: 100%;
+    }
+}
+
 .page-footer {
     margin-top: 20px;
     background-color: #005090;
@@ -56,6 +68,12 @@ a:hover {
     width: 85%;
 }
 
+@media screen and (max-width: 1024px) {
+    .page-footer {
+        width: 100%;
+    }
+}
+
 .row {
     padding-top: 16px;
     width: 85%;
@@ -63,6 +81,12 @@ a:hover {
     display: flex;
     justify-content: space-around;
     align-items: stretch;
+}
+
+@media screen and (max-width: 1024px) {
+    .row {
+        width: 100%;
+    }
 }
 
 .block {
