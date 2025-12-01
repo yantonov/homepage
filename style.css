@@ -54,7 +54,7 @@ a:hover {
 
 @media (max-width: 1024px) {
     .page-header {
-        width: 100%;
+        width: 95%;
     }
 }
 
@@ -70,7 +70,7 @@ a:hover {
 
 @media (max-width: 1024px) {
     .page-footer {
-        width: 100%;
+        width: 95%;
     }
 }
 
