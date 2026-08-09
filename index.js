@@ -1,3 +1,5 @@
+const QUERY_DEBOUNCE_DELAY_MS = 150;
+
 function isCharsIncludedInOrder(query, text) {
     let queryPos = 0;
     let textPos = 0;
@@ -11,6 +13,15 @@ function isCharsIncludedInOrder(query, text) {
         }
     }
     return queryPos == query.length;
+}
+
+function debounce(callback, delay) {
+    let timeout = null;
+
+    return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => callback(...args), delay);
+    };
 }
 
 class LangLink {
@@ -27,10 +38,8 @@ class LangLink {
 
     __update(state) {
         let serializedState = state.serialize();
-
         let href = this.element.attributes.getNamedItem("href");
         let index = href.value.indexOf("#");
-
         href.value = index < 0
             ? href.value + "#" + serializedState
             : href.value.substring(0, index) + "#" + serializedState;
@@ -83,7 +92,6 @@ class Links {
             (query, name) => this.search.isExactMatch(query, name),
             (query, name) => this.search.isFuzzySearchMatch(query, name),
         ]
-
         for (var i = 0; i < predicates.length; ++i) {
             let predicate = predicates[i];
             let selected = this.links.filter(item => {
@@ -96,7 +104,6 @@ class Links {
                 });
                 return;
             }
-
         }
     }
 
@@ -172,8 +179,12 @@ class QueryInput {
         this.document = document;
         this.element = document.getElementsByClassName('query')[0];
 
-        this.element.addEventListener('input', (event) => {
-            state.setQuery(self.element.value);
+        this.setQuery = debounce((value) => {
+            state.setQuery(value);
+        }, QUERY_DEBOUNCE_DELAY_MS);
+
+        this.element.addEventListener('input', () => {
+            self.setQuery(self.element.value);
         });
 
         state.subscribe(state => {
