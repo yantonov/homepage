@@ -1,5 +1,3 @@
-const QUERY_DEBOUNCE_DELAY_MS = 150;
-
 function isCharsIncludedInOrder(query, text) {
     let queryPos = 0;
     let textPos = 0;
@@ -15,13 +13,17 @@ function isCharsIncludedInOrder(query, text) {
     return queryPos == query.length;
 }
 
+const QUERY_DEBOUNCE_DELAY_MS = 150;
+
 function debounce(callback, delay) {
     let timeout = null;
 
-    return (...args) => {
+    let debounced = (...args) => {
         clearTimeout(timeout);
         timeout = setTimeout(() => callback(...args), delay);
     };
+    debounced.cancel = () => clearTimeout(timeout);
+    return debounced;
 }
 
 class LangLink {
@@ -179,12 +181,12 @@ class QueryInput {
         this.document = document;
         this.element = document.getElementsByClassName('query')[0];
 
-        this.setQuery = debounce((value) => {
+        this.commitQuery = debounce((value) => {
             state.setQuery(value);
         }, QUERY_DEBOUNCE_DELAY_MS);
 
         this.element.addEventListener('input', () => {
-            self.setQuery(self.element.value);
+            self.commitQuery(self.element.value);
         });
 
         state.subscribe(state => {
@@ -199,6 +201,7 @@ class QueryInput {
     }
 
     reset() {
+        this.commitQuery.cancel();
         this.setValue('');
         this.element.classList.remove('query-highlighted');
     }
@@ -209,6 +212,10 @@ class QueryInput {
 
     focus() {
         this.element.focus();
+    }
+
+    cancelPendingQuery() {
+        this.commitQuery.cancel();
     }
 
     hasFocus() {
@@ -231,6 +238,7 @@ class KeyboardHandler {
                     queryInput.focus();
                 }
                 else {
+                    queryInput.cancelPendingQuery();
                     state.setQuery('');
                     event.preventDefault();
                 }
